@@ -31,14 +31,25 @@ wget $uri -P /usr/local/src
 case $extension in
     ".gz")
         #Source install
+        #extract package
+        #sudo tar xzvf /usr/local/src/filename.tar.gz
+
+        #cd into the folder 
+        #cd /usr/local/src/filename
+        #./configure
+        #make
+        #sudo make install
+        
         ;;
     
     "deb")
         #deb install
+        #sudo dpkg -i /usr/local/src/filename.deb
         ;;
     
     "rpm")
         #rpm install
+        #sudo rpm -i /usr/local/src/filename.rpm
         ;;
     
     *)
