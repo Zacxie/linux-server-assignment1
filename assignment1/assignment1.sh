@@ -28,6 +28,7 @@ wget $uri -P /usr/local/src
 
 #6
 #install package depended on the package type
+#TODO need to get the full name of the downloaded package. 
 case $extension in
     ".gz")
         #Source install
