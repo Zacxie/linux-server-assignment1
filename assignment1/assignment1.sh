@@ -10,21 +10,21 @@ read -p "Name of package: " packagename
 
 #3
 #read the website
-read -p "Enter link for package: " uri
+read -p "Enter link for package: " url
 
 #set extension for use in step 6
-extension="${uri: -3}"
-echo "$extension"
+extension="${url: -3}"
 
 #4
 #check/changes permissions of /usr/local/src so everyone can download
 #rwxrwxrwx
-sudo chmod 777 /usr/local/src
+sudo chmod 747 /usr/local/src
 
 #5
 #use wget to download package
 #test website https://nmap.org/dist/nmap-7.91-1.x86_64.rpm
-wget $uri -P /usr/local/src
+wget $url -P /usr/local/src
+filename="ls /usr/local/src -tu | head -n 1"
 
 #6
 #install package depended on the package type
@@ -50,7 +50,7 @@ case $extension in
     
     "rpm")
         #rpm install
-        #sudo rpm -i /usr/local/src/filename.rpm
+        sudo rpm -i /usr/local/src/$filename
         ;;
     
     *)
