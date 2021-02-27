@@ -1,4 +1,4 @@
-#!/usr/bin/bash --
+#!/bin/bash --
 
 #1
 #ask for the package to be downloaded
@@ -24,7 +24,7 @@ sudo chmod 747 /usr/local/src
 #use wget to download package
 #test website https://nmap.org/dist/nmap-7.91-1.x86_64.rpm
 wget $url -P /usr/local/src
-filename="ls /usr/local/src -tu | head -n 1"
+filename=`ls /usr/local/src -tu | head -n 1`
 
 #6
 #install package depended on the package type
@@ -40,19 +40,15 @@ case $extension in
         #./configure
         #make
         #sudo make install
-        
         ;;
-    
     "deb")
         #deb install
         #sudo dpkg -i /usr/local/src/filename.deb
         ;;
-    
     "rpm")
         #rpm install
         sudo rpm -i /usr/local/src/$filename
         ;;
-    
     *)
         echo "Unsupported filetype."
         ;;
