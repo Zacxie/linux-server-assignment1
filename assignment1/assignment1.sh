@@ -93,8 +93,10 @@ echo "Missing dependencies."
  
  read -p "Do you wish to install the missing dependencies? (y/n): " dependsAnswer
 
+#9
  if [ "$dependsAnswer" = "y" ]
  then
+ 
     #install dependencies with apt
     yes | sudo apt -f install
 else 
