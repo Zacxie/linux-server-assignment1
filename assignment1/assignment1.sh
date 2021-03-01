@@ -25,8 +25,6 @@ sudo chmod 747 /usr/local/src
 
 wget $url -P /usr/local/src
 filename=`ls /usr/local/src -tu | head -n 1`
-echo $filename
-echo $extension
 
 #6
 #install package depended on the package type
@@ -58,6 +56,7 @@ case $extension in
         make install
         ;;
     "deb")
+        # test website https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
         #deb install
         sudo dpkg -i /usr/local/src/$filename
         ;;
@@ -78,8 +77,30 @@ esac
 if [ $? -eq 0 ]
 then
     echo "Successfully installed $packagename""."
+    exit
 else 
     echo "Error. Installation was unsuccessful."
 fi
 
 #8
+echo "Missing dependencies."
+ 
+ read -p "Do you wish to install the missing dependencies? (y/n): " dependsAnswer
+
+ if [ "$dependsAnswer" = "y" ]
+ then
+    echo "install depend with apt"
+    #install dependencies with apt
+    yes | sudo apt -f install
+else 
+    echo "Abort."
+    exit
+fi
+
+#check if successfull
+if [ $? -eq 0 ]
+then
+    echo "Successfully installed $packagename""."
+else 
+    echo "Error. Installation was unsuccessful."
+fi
