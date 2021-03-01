@@ -22,32 +22,50 @@ sudo chmod 747 /usr/local/src
 
 #5
 #use wget to download package
-#test website https://nmap.org/dist/nmap-7.91-1.x86_64.rpm
+
 wget $url -P /usr/local/src
 filename=`ls /usr/local/src -tu | head -n 1`
+echo $filename
+echo $extension
 
 #6
 #install package depended on the package type
-#TODO need to get the full name of the downloaded package. 
 case $extension in
     ".gz")
+        #test website https://nmap.org/dist/nmap-7.91.tar.bz2
         #Source install
         #extract package
-        #sudo tar xzvf /usr/local/src/filename.tar.gz
+        sudo tar xzvf /usr/local/src/$filename
 
         #cd into the folder 
-        #cd /usr/local/src/filename
-        #./configure
+        cd /usr/local/src/$filename
+        ./configure
         #make
-        #sudo make install
+        sudo make install
+        ;;
+    "bz2")
+        echo "entered .bz2"
+        #test website https://nmap.org/dist/nmap-7.91.tar.bz2
+        #Source install
+        #extract package
+        sudo tar jxvf /usr/local/src/$filename -C /usr/local/src 
+        filename=`ls /usr/local/src -tu | head -n 1`
+
+        #cd into the folder 
+        /usr/local/src/$filename/./configure
+        make
+        su
+        make install
         ;;
     "deb")
         #deb install
-        #sudo dpkg -i /usr/local/src/filename.deb
+        sudo dpkg -i /usr/local/src/$filename
         ;;
     "rpm")
+        #test website https://nmap.org/dist/nmap-7.91-1.x86_64.rpm
         #rpm install
-        sudo rpm -i /usr/local/src/$filename
+        #the -i auto installs the generated packages (deb)
+        sudo alien -i /usr/local/src/$filename
         ;;
     *)
         echo "Unsupported filetype."
