@@ -34,23 +34,29 @@ case $extension in
         #Source install
         #extract package
         sudo tar xzvf /usr/local/src/$filename
+        #choose output name
+        filename=`ls /usr/local/src -tu | head -n 1`
 
         #cd into the folder 
-        cd /usr/local/src/$filename
+        sudo chmod 747 /usr/local/src/$filename/
+        cd /usr/local/src/$filename/
         ./configure
-        #make
-        sudo make install
+        make
+        su
+        make install
         ;;
     "bz2")
-        echo "entered .bz2"
         #test website https://nmap.org/dist/nmap-7.91.tar.bz2
         #Source install
         #extract package
         sudo tar jxvf /usr/local/src/$filename -C /usr/local/src 
+        #choose output name
         filename=`ls /usr/local/src -tu | head -n 1`
 
         #cd into the folder 
-        /usr/local/src/$filename/./configure
+        sudo chmod 747 /usr/local/src/$filename/
+        cd /usr/local/src/$filename/
+        ./configure
         make
         su
         make install
@@ -89,7 +95,6 @@ echo "Missing dependencies."
 
  if [ "$dependsAnswer" = "y" ]
  then
-    echo "install depend with apt"
     #install dependencies with apt
     yes | sudo apt -f install
 else 
