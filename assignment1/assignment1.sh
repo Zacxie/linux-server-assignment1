@@ -22,7 +22,6 @@ sudo chmod 747 /usr/local/src
 
 #5
 #use wget to download package
-
 wget $url -P /usr/local/src
 filename=`ls /usr/local/src -tu | head -n 1`
 
@@ -33,17 +32,16 @@ case $extension in
         #test website https://nmap.org/dist/nmap-7.91.tar.bz2
         #Source install
         #extract package
-        sudo tar xzvf /usr/local/src/$filename
+        sudo tar zxvf /usr/local/src/$filename
         #choose output name
-        filename=`ls /usr/local/src -tu | head -n 1`
+        unzippedFilename=`ls /usr/local/src -tu | head -n 1`
 
         #cd into the folder 
-        sudo chmod 747 /usr/local/src/$filename/
-        cd /usr/local/src/$filename/
-        ./configure
-        make
-        su
-        make install
+        sudo chmod 747 /usr/local/src/$unzippedFilename/
+        cd /usr/local/src/$unzippedFilename/
+        sudo ./configure
+        sudo make
+        sudo make install
         ;;
     "bz2")
         #test website https://nmap.org/dist/nmap-7.91.tar.bz2
@@ -51,15 +49,14 @@ case $extension in
         #extract package
         sudo tar jxvf /usr/local/src/$filename -C /usr/local/src 
         #choose output name
-        filename=`ls /usr/local/src -tu | head -n 1`
+        unzippedFilename=`ls /usr/local/src -tu | head -n 1`
 
         #cd into the folder 
-        sudo chmod 747 /usr/local/src/$filename/
-        cd /usr/local/src/$filename/
-        ./configure
-        make
-        su
-        make install
+        sudo chmod 747 /usr/local/src/$unzippedFilename/
+        cd /usr/local/src/$unzippedFilename/
+        sudo ./configure
+        sudo make
+        sudo make install
         ;;
     "deb")
         # test website https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
